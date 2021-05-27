@@ -1,0 +1,3 @@
+= Posts
+
+* xref:posts/0001_welcome.adoc[Welcome my name is...]

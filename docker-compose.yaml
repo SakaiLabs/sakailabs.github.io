@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  asciidoc:
+    # this fixes the annoying problem which causes the
+    # files to be created as root
+    user: $USERID:$GUID
+    image: asciidoctor/docker-asciidoctor@sha256:e2fad9b9ab71bb4fbc5a320753a904cafd117610e5c19c0502737b1b2485748e
+    volumes:
+      - ".:/workspace"
+    command: >
+      /bin/bash -c "
+        rm -rf /workspace/docs/*;
+        asciidoctor -R /workspace/blog -D /workspace/docs -r asciidoctor-diagram -a data-uri -a icons=font -a linkcss '/workspace/blog/**/*.adoc';
+        cp -a /workspace/blog/assets /workspace/docs/assets;
+      "
